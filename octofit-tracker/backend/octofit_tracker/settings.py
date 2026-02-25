@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-_03d$*s8*@cj*8%dj6#af^c3mhesceq=n_84ts2x8)59k&)$z@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+import os
+
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    os.getenv('CODESPACE_NAME', '') + '-8000.app.github.dev' if os.getenv('CODESPACE_NAME') else '',
+]
+ALLOWED_HOSTS = [host for host in ALLOWED_HOSTS if host]
 
 
 # Application definition
@@ -37,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'octofit_tracker.octofit_tracker',
 ]
 
 MIDDLEWARE = [
